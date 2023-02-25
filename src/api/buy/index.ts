@@ -1,32 +1,32 @@
 import Hapi from "@hapi/hapi";
-import { deposit } from "./handlers";
-import { depositPayloadSchema } from "./validators";
+import { buy } from "./handlers";
+import { buyPayloadSchema } from "./validators";
 import { UserRole } from "@prisma/client";
 
 const register = async function (server: Hapi.Server) {
   server.route([
     {
       method: "POST",
-      path: "/deposit",
+      path: "/buy",
       options: {
-        description: "Deposits amoutns for a buyer user",
+        description: "Buys a product for a buyer user",
         validate: {
-          payload: depositPayloadSchema,
+          payload: buyPayloadSchema,
         },
         auth: {
           strategy: "session",
           scope: UserRole.BUYER,
         },
-        tags: ["api", "deposit"],
-        handler: deposit,
+        tags: ["api", "buy"],
+        handler: buy,
       },
     },
   ]);
 };
 
-const depositApiPlugin = {
+const buyApiPlugin = {
   register,
-  name: "depositApi",
+  name: "buyApi",
 };
 
-export default depositApiPlugin;
+export default buyApiPlugin;

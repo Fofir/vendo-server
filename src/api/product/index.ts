@@ -94,9 +94,9 @@ const register = async function (server: Hapi.Server) {
   ]);
 };
 
-const authApiPlugin = {
+const productApiPlugin = {
   register,
   name: "productApi",
 };
 
-export default authApiPlugin;
+export default productApiPlugin;

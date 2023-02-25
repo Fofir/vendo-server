@@ -9,6 +9,7 @@ import authApi from "../src/api/auth";
 import userApi from "../src/api/user";
 import productApi from "../src/api/product";
 import depositApi from "../src/api/deposit";
+import buyApi from "../src/api/buy";
 import { IServer } from "../src/interfaces/server";
 
 const printServerRoutes = (server: Server) => {
@@ -97,6 +98,9 @@ export async function createServer(): Promise<IServer> {
     },
     {
       plugin: depositApi,
+    },
+    {
+      plugin: buyApi,
     },
   ]);
 

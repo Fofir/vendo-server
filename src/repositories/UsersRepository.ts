@@ -52,6 +52,17 @@ class UsersRepository {
       },
     });
   }
+
+  resetDepositForUserWithId(userId: number) {
+    return this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        deposit: 0,
+      },
+    });
+  }
 }
 
 export default UsersRepository;
