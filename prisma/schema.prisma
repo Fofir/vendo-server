@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  SELLER
+  BUYER
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  username String    @unique
+  password String
+  deposit  Int
+  role     UserRole
+  Product  Product[]
+
+  @@index([id, username])
+  @@map("users")
+}
+
+model Product {
+  id              Int    @id @unique @default(autoincrement())
+  productName     String
+  amountAvailable Int
+  cost            Int
+
+  sellerId Int
+  seller   User @relation(fields: [sellerId], references: [id])
+
+  @@map("products")
+}

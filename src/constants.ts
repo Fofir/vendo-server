@@ -1,0 +1,3 @@
+export const API_AUTH_STATEGY = "API";
+export const JWT_ALGORITHM = "HS256";
+export const ACCESS_TOKEN_API_AUTH_STRATEGY = "ACCESS_TOKEN_API";
