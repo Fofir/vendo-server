@@ -33,16 +33,6 @@ const authPlugin: Hapi.Plugin<AuthPluginOptions> = {
     const { cookieName, cookiePassword, isCookieSecure, isCookieSameSite } =
       options;
 
-    const cookieConfig = {
-      name: cookieName,
-      password: cookiePassword,
-      isSecure: isCookieSecure,
-      ttl: 7 * 24 * 60 * 60 * 1000, // a week
-      isHttpOnly: true,
-      path: "/",
-      isSameSite: isCookieSameSite ? "Strict" : "None",
-    };
-
     const validate = async (request: IRequest, session: any) => {
       if (!session) {
         return { isValid: false };
@@ -67,7 +57,15 @@ const authPlugin: Hapi.Plugin<AuthPluginOptions> = {
     };
 
     server.auth.strategy("session", "cookie", {
-      cookie: cookieConfig,
+      cookie: {
+        name: cookieName,
+        password: cookiePassword,
+        isSecure: isCookieSecure,
+        ttl: 7 * 24 * 60 * 60 * 1000, // a week
+        isHttpOnly: true,
+        path: "/",
+        isSameSite: isCookieSameSite ? "Strict" : false,
+      },
       validate,
     });
 
