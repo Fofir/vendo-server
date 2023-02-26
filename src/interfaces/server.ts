@@ -14,8 +14,6 @@ export interface IServer extends Hapi.Server {
 }
 
 export interface IRequest extends Hapi.Request {
-  sendRollbarMessage(arg0: string): unknown;
-
   auth: IRequestAuth;
   server: IServer;
 }

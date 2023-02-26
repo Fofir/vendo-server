@@ -29,7 +29,7 @@ const server = Hapi.server({
       relativeTo: path.join(__dirname, "../public"),
     },
     cors: {
-      origin: ["*"],
+      origin: [config.allowedOrigin],
       credentials: true,
       additionalHeaders: [
         "cache-control",
@@ -47,37 +47,12 @@ export async function createServer(): Promise<IServer> {
     throw new Error("Missing DB connection string");
   }
 
-  if (config.rollbarToken && config.isRollbarEnabled) {
-    const rollbarOptions = {
-      accessToken: config.rollbarToken,
-      captureEmail: false,
-      enabled: true,
-      captureUncaught: true,
-      captureUnhandledRejections: true,
-      omittedResponseCodes: [400, 401, 404, 409],
-      environment: nodeEnv,
-    };
-    await server.register({
-      plugin: require("@goodwaygroup/lib-hapi-rollbar"),
-      options: rollbarOptions,
-    });
-  } else {
-    // passthru helper method to clean up code when rollbar is not configured
-    server.decorate("request", "sendRollbarMessage", () => {});
-  }
-
   await server.register([
     { plugin: hapiCookie },
     { plugin: prismaPlugin, options: { db: dbString } },
     {
       plugin: servicesPlugin,
     },
-    // {
-    //   plugin: socketPlugin,
-    //   options: {
-    //     allowedOrigin: config.allowedOrigin,
-    //   },
-    // },
     {
       plugin: authPlugin,
       options: {
