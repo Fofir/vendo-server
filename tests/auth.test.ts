@@ -96,7 +96,7 @@ describe("Auth API", () => {
 
         const sessionCookie = response.headers["set-cookie"][0];
         expect(sessionCookie).toMatch(
-          /vendo_dev-api-session-local=.+Max-Age=604800; Expires=.*; HttpOnly; SameSite=None; Path=\//
+          /vendo_dev-api-session-local=.+Max-Age=604800; Expires=.*; HttpOnly; Path=\//
         );
 
         expect(response.result).toEqual(
@@ -141,7 +141,7 @@ describe("Auth API", () => {
 
       const sessionCookie = response.headers["set-cookie"][0];
       expect(sessionCookie).toMatch(
-        /vendo_dev-api-session-local=; Max-Age=0; Expires=.*; HttpOnly; SameSite=None; Path=\//
+        /vendo_dev-api-session-local=; Max-Age=0; Expires=.*; HttpOnly; Path=\//
       );
     });
   });
