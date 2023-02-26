@@ -71,6 +71,21 @@ class UsersService {
     return changeArr;
   }
 
+  async resetDepositForUserWithId(userId: number) {
+    const user = await this.usersRepository.findUniqeById(userId);
+
+    if (!user) {
+      throw new Error(this.errors.USER_NOT_FOUND);
+    }
+
+    await this.usersRepository.resetDepositForUserWithId(userId);
+    const change = this.parseChangeToDenominations(user?.deposit);
+
+    return {
+      change,
+    };
+  }
+
   async subtractFundForUserWithId(userId: number, value: number) {
     const user = await this.usersRepository.findUniqeById(userId);
     if (!user) {

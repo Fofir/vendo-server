@@ -10,6 +10,7 @@ import userApi from "../src/api/user";
 import productApi from "../src/api/product";
 import depositApi from "../src/api/deposit";
 import buyApi from "../src/api/buy";
+import resetApi from "../src/api/reset";
 import { IServer } from "../src/interfaces/server";
 const Inert = require("@hapi/inert");
 const Vision = require("@hapi/vision");
@@ -90,6 +91,9 @@ export async function createServer(): Promise<IServer> {
     },
     {
       plugin: buyApi,
+    },
+    {
+      plugin: resetApi,
     },
   ]);
 
