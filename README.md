@@ -17,6 +17,10 @@ RESTful API server for the Vendo Application
 $ cp .example.env .env
 ```
 
+#### Documentation
+
+Generated using hapi-swagger and can be accessed on `/documentation`
+
 #### Build
 
 ```

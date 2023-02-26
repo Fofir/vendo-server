@@ -11,6 +11,9 @@ import productApi from "../src/api/product";
 import depositApi from "../src/api/deposit";
 import buyApi from "../src/api/buy";
 import { IServer } from "../src/interfaces/server";
+const Inert = require("@hapi/inert");
+const Vision = require("@hapi/vision");
+const HapiSwagger = require("hapi-swagger");
 
 const printServerRoutes = (server: Server) => {
   console.log("==> Server routes");
@@ -18,6 +21,11 @@ const printServerRoutes = (server: Server) => {
     const routeTitle = `${route.method.toUpperCase()} ${route.path}`;
     console.log("   *", routeTitle);
   });
+};
+const swaggerOptions = {
+  info: {
+    title: "Vendo API",
+  },
 };
 
 const server = Hapi.server({
@@ -48,6 +56,12 @@ export async function createServer(): Promise<IServer> {
   }
 
   await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
     { plugin: hapiCookie },
     { plugin: prismaPlugin, options: { db: dbString } },
     {

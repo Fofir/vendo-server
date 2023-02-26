@@ -9,6 +9,7 @@ const register = async function (server: Hapi.Server) {
       path: "/auth/login",
       options: {
         auth: false,
+        description: "Validates user credentials and starts a session",
         tags: ["api"],
         validate: {
           payload: loginUserPayloadSchema,
@@ -20,6 +21,7 @@ const register = async function (server: Hapi.Server) {
       method: "POST",
       path: "/auth/logout",
       options: {
+        description: "Deletes an existing user session",
         auth: "session",
         tags: ["api"],
         handler: logout,
