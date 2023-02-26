@@ -5,6 +5,7 @@ import {
   ProductCreationPayload,
   ProductUpdatePayload,
 } from "../../interfaces/Product";
+import { UserRole } from "@prisma/client";
 
 export const getProduct = async (request: IRequest, h: ResponseToolkit) => {
   const {
@@ -25,6 +26,29 @@ export const getProduct = async (request: IRequest, h: ResponseToolkit) => {
   }
 
   return product;
+};
+
+export const getProducts = async (request: IRequest, h: ResponseToolkit) => {
+  const {
+    server: {
+      plugins: {
+        services: { productsService },
+      },
+    },
+    auth: {
+      credentials: { scope, userId },
+    },
+  } = request;
+
+  const isSeller = scope?.includes(UserRole.SELLER);
+
+  if (isSeller) {
+    const products = await productsService.getAll(parseInt(userId, 10));
+    return products;
+  }
+
+  const products = await productsService.getAll();
+  return products;
 };
 
 export const createProduct = async (request: IRequest, h: ResponseToolkit) => {

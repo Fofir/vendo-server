@@ -5,6 +5,7 @@ import {
   updateProduct,
   validateSellerProductOwnership,
   deleteProduct,
+  getProducts,
 } from "./handlers";
 import {
   createProductPayloadSchema,
@@ -44,6 +45,17 @@ const register = async function (server: Hapi.Server) {
           params: getProductParamsSchema,
         },
         handler: getProduct,
+      },
+    },
+    {
+      method: "GET",
+      path: "/products",
+      options: {
+        description:
+          "Retrieves information about a all products that the user can view",
+        auth: "session",
+        tags: ["api", "product"],
+        handler: getProducts,
       },
     },
     {

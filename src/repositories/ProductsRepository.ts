@@ -45,6 +45,14 @@ class ProductsRepository {
       },
     });
   }
+
+  getAll(sellerId?: number) {
+    return this.prisma.product.findMany({
+      where: {
+        sellerId,
+      },
+    });
+  }
 }
 
 export default ProductsRepository;

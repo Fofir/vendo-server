@@ -35,6 +35,10 @@ class ProductsService {
   delete(productId: number) {
     return this.productsRepository.delete(productId);
   }
+
+  getAll = (sellerId?: number) => {
+    return this.productsRepository.getAll(sellerId);
+  };
 }
 
 export default ProductsService;
