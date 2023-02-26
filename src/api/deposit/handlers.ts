@@ -21,5 +21,7 @@ export const deposit = async (request: IRequest) => {
     deposit
   );
 
-  return userAfterDeposit;
+  return {
+    deposit: userAfterDeposit.deposit,
+  };
 };

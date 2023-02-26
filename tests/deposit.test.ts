@@ -29,7 +29,7 @@ describe("Deposit API", () => {
       data: {
         username: "Arwen",
         password: "gotta-love-elves",
-        deposit: 0,
+        deposit: 5,
         role: "BUYER",
       },
     });
@@ -127,6 +127,7 @@ describe("Deposit API", () => {
           });
 
           expect(repsonse.statusCode).toEqual(200);
+          expect(repsonse.result).toEqual({ deposit: 10 });
         });
       });
     });
