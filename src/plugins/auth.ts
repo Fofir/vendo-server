@@ -53,7 +53,10 @@ const authPlugin: Hapi.Plugin<AuthPluginOptions> = {
         return { isValid: false };
       }
 
-      return { isValid: true, credentials: { userId: user.id } };
+      return {
+        isValid: true,
+        credentials: { userId: user.id, scope: [user.role] },
+      };
     };
 
     server.auth.strategy("session", "cookie", {
