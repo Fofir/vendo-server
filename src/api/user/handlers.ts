@@ -55,7 +55,7 @@ export const registerUser = async (request: IRequest, h: ResponseToolkit) => {
       return unauthorized();
     }
 
-    request.cookieAuth.set({ id: user.id, scopes: [user.role] });
+    request.cookieAuth.set({ id: user.id });
     return h.response(user).code(201);
   } catch (err: any) {
     return unauthorized(err.message);

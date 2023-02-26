@@ -26,10 +26,9 @@ export const login = async (request: IRequest, h: ResponseToolkit) => {
       return unauthorized();
     }
 
-    bcrypt.compare(password, user.password);
-    console.log("setting cookie");
+    await bcrypt.compare(password, user.password);
 
-    request.cookieAuth.set({ id: user.id, scopes: [user.role] });
+    request.cookieAuth.set({ id: user.id });
     return omit(user, ["password"]);
   } catch (err: any) {
     return unauthorized(err.message);
