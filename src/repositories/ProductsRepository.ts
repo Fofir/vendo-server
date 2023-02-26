@@ -38,6 +38,19 @@ class ProductsRepository {
     });
   }
 
+  subtractAmountAvailable(productId: number, amount: number) {
+    return this.prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        amountAvailable: {
+          decrement: amount,
+        },
+      },
+    });
+  }
+
   delete(productId: number) {
     return this.prisma.product.delete({
       where: {

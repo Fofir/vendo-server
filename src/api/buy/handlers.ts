@@ -35,6 +35,8 @@ export const buy = async (request: IRequest) => {
       totalCost
     );
 
+    await productsService.subtractAmountAvailable(productId, amount);
+
     return {
       ...result,
       productName: product.productName,

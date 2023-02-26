@@ -230,6 +230,14 @@ describe("Buy API", () => {
           });
 
           expect(user?.deposit).toEqual(0);
+
+          const productAfterSale = await prisma.product.findUnique({
+            where: {
+              id: product.id,
+            },
+          });
+
+          expect(productAfterSale?.amountAvailable).toEqual(199);
         });
       });
     });

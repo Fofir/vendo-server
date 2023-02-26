@@ -39,6 +39,10 @@ class ProductsService {
   getAll = (sellerId?: number) => {
     return this.productsRepository.getAll(sellerId);
   };
+
+  subtractAmountAvailable(productId: number, amount: number) {
+    return this.productsRepository.subtractAmountAvailable(productId, amount);
+  }
 }
 
 export default ProductsService;
